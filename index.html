@@ -6,94 +6,137 @@
   <title>OrbitDev - Missão Espacial</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
     body {
-      background: #0a0a0f;
+      background-color: #0a0a0f;
       font-family: 'Comic Sans MS', 'Chalkboard SE', Arial, sans-serif;
       color: #e0e0ff;
-      background-image: 
-        radial-gradient(1px 1px at 25px 5px, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 50px 25px, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 125px 20px, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 50px 75px, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 15px 125px, #fff, rgba(0,0,0,0));
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 40px 70px, #fff, transparent),
+        radial-gradient(3px 3px at 50px 160px, #fff, transparent),
+        radial-gradient(2px 2px at 90px 40px, #fff, transparent),
+        radial-gradient(3px 3px at 130px 80px, #fff, transparent),
+        radial-gradient(2px 2px at 160px 120px, #fff, transparent);
       background-repeat: repeat;
       background-size: 200px 200px;
-      animation: estrelas 100s linear infinite;
+      animation: voar 80s linear infinite;
       min-height: 100vh;
       padding: 20px;
     }
 
-    @keyframes estrelas {
+    @keyframes voar {
       from { background-position: 0 0; }
-      to { background-position: -400px -400px; }
+      to { background-position: -200px -200px; }
     }
 
-   .container { max-width: 800px; margin: 0 auto; }
-    
+  .container { max-width: 800px; margin: 0 auto; }
+
     h1 {
       text-align: center;
-      font-size: 3.5rem;
-      background: linear-gradient(90deg, #6e44ff, #b892ff, #44d1ff);
+      font-size: 3.2rem;
+      background: linear-gradient(90deg, #6e44ff, #b892ff, #44d1ff, #6e44ff);
+      background-size: 300% 300%;
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+      color: #6e44ff; /* fallback se o gradiente bugar */
       margin-bottom: 10px;
       font-weight: 800;
+      animation: brilho 3s ease infinite;
     }
-    
-   .subtitulo { 
-      text-align: center; 
-      color: #a0a0ff; 
-      margin-bottom: 30px; 
+
+    @keyframes brilho {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+  .subtitulo {
+      text-align: center;
+      color: #a0a0ff;
+      margin-bottom: 30px;
       font-size: 1.3rem;
     }
-    
+
     #busca {
       width: 100%;
       padding: 15px 20px;
       font-size: 1.1rem;
       border: 2px solid #6e44ff;
       border-radius: 50px;
-      background: rgba(20, 20, 40, 0.7);
+      background: rgba(20, 20, 40, 0.8);
       color: white;
       margin-bottom: 30px;
       box-sizing: border-box;
-      backdrop-filter: blur(10px);
     }
-    
-   .vaga {
-      background: rgba(20, 20, 40, 0.7);
-      border: 1px solid rgba(110, 68, 255, 0.5);
+
+  .vaga {
+      background: rgba(20, 20, 40, 0.8);
+      border: 2px solid #6e44ff;
       border-radius: 16px;
       padding: 25px;
       margin: 20px 0;
-      backdrop-filter: blur(15px);
-      transition: 0.3s;
+      box-shadow: 0 0 20px rgba(110, 68, 255, 0.3);
     }
-    
-   .vaga:hover {
-      transform: translateY(-8px);
-      border: 1px solid #6e44ff;
-      box-shadow: 0 15px 40px rgba(110, 68, 255, 0.4);
-    }
-    
-   .vaga h2 { 
-      margin: 0 0 10px 0; 
-      color: #fff; 
+
+  .vaga h2 {
+      margin: 0 0 10px 0;
+      color: #fff;
       font-size: 1.6rem;
     }
-   .vaga p { margin: 8px 0; color: #b892ff; font-size: 1.1rem; }
-   .tags { margin: 15px 0; }
-   .tag {
-      background: rgba(110, 68, 255, 0.3);
+  .vaga p { margin: 8px 0; color: #b892ff; font-size: 1.1rem; }
+  .tags { margin: 15px 0; }
+  .tag {
+      background: #6e44ff;
       color: white;
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.9rem;
       margin-right: 8px;
       display: inline-block;
-      border: 1px solid #6e44ff;
     }
-   .btn {
+  .btn {
       background: linear-gradient(90deg, #ff4d8d, #ff8d4d);
-      color
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+      font-size: 1rem;
+      font-weight: bold;
+      font-family: 'Comic Sans MS', Arial, sans-serif;
+    }
+  .escondido { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 OrbitDev</h1>
+    <p class="subtitulo">Missões espaciais de programação!</p>
+
+    <input type="text" id="busca" placeholder="Digite: foguete, alien, robô..." onkeyup="buscar()">
+
+    <div id="vagas">
+      <div class="vaga">
+        <h2>🛸 Piloto de Foguete Roxo</h2>
+        <p>Nave CodeNebula</p>
+        <div class="tags">
+          <span class="tag">Espaço</span>
+          <span class="tag">Botões</span>
+          <span class="tag">Roxo</span>
+        </div>
+        <p>Missão: Pilotar um foguete roxo super veloz e desviar de asteroides!</p>
+        <button class="btn" onclick="alert('Missão roxa salva! 🌟✨')">🤍 Salvar Missão</button>
+      </div>
+
+      <div class="vaga">
+        <h2>🤖 Treinador de Robôs Dançarinos</h2>
+        <p>Academia RocketCode</p>
+        <div class="tags">
+          <span class="tag">Robôs</span>
+          <span class="tag">Dança</span>
+          <span class="tag">Luzes</span>
+        </div>
+        <p>Ensine robôs a dançar break com luz
